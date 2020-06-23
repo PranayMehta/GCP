@@ -1,0 +1,57 @@
+kubernetes
+
+- runs containers on a cluster of VMs
+- Kubernetes determines where to run containers, monitors health and manages full life cycle of VMs
+- collection of tasks is known as container orchestration
+- similar to instance groups but IGs are more restricted
+- containers offer highly portable, light weight means of distributing and scaling ur applications
+
+kubernetes cluster architecture
+- cluster consists of cluster master and one or more nodes, which are workers
+- master(m) controls the cluster 
+	- can be replicated and distributed for high availability and fault tolerance
+	- all interactions with the cluster are done thru the master using Kubernetes API
+	- master issues command that performs an action on a node
+- users can also interact with cluster using "kubectl" command
+- nodes(n) execute the workloads that run on a cluster
+	- nodes are primarily controlled by master 
+	- nodes run an agent called "kubelet", a service that communicates with the master
+	- some memory and CPU is reserved for kubernetes and is not available for applications running on the node
+
+- kubernetes organizes processing into workloads
+- workloads are distributed across nodes in a cluster
+
+Basic concepts of how workload is distributed
+- pods
+- services
+- volumes
+- namespaces
+
+each of the above objects contribute to logical organization of workloads
+
+1.Pods
+- single instances of running process in a cluster
+- pods contain atleast 1 container 
+- each pod gets its own unique IP and a set of ports. containers connect to a port
+- containers connect to diff ports and can talk to each other
+- pods treat multiple containers as a single entity for management purposes
+- pods are created in GROUPS
+- pods support autoscaling too
+- pods are ephemeral, they are expected to terminate
+- a CONTROLLER manages scaling and health monitoring 
+
+2.Services
+- even though pods have unique IPs, apps should not be dependent on that IP
+- if the pod with that IP is terminated and another created, then it many have another IP address
+- kubernetes provide a level of indirection between apps running in pods and other apps that call them
+- this is known as a SERVICE
+- a service is an object that provides API endpoints with stable IPs that allow apps to discover pods running a particular app
+- up to date list of pods is maintained
+
+3.Volumes
+
+4.Namespaces
+
+
+
+

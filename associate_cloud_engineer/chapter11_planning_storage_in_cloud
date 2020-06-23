@@ -1,0 +1,94 @@
+-- Chapter 11 - planning storage in cloud
+
+-- choose best storage solution
+
+storage solutions vary by 
+1.time to access data
+2.data model
+3.other features - consistency, availability and support for transactions
+
+Types of storage systems
+- latency is measures in nano, mirco and milli seconds
+
+GCP storage services
+- redis cache service for caching
+- persistent disk storage for VMs
+- object storage
+- archival storage for long term, infrequent access requirements
+
+Cache
+- in-memory data store
+- low latency
+- faster response time
+- limited in mem size
+- if machine hosting the cache is shut down, content is lost
+
+memory store(MS)
+- MemoryStore, a managed Redis service
+- redis is a widely used open source cache
+- MS is protocol compatible with redis
+- Application developers can use caches to store data that is retrieved from a database and then retrieved from the cache instead of the disk the next time that data is needed
+- When you use Memorystore, you create instances that run Redis. The instance is con- figured with 1GB to 300GB of memory
+- configuring a MS
+	- choose memory options for redis instance
+	- location
+	- basic tier - no replica, costs less
+	- standard tier - failover replica in separate zone for high availability
+	- IP range
+
+Persistent disk storage(PD)
+- PD provides block storages
+- users can create file systems
+- can be attached to compute engine VMs or GKE VMs
+- not directly attached to physical servers hosting ur VMs
+- VMs can have locally attached SSDs but data is lost when VM is terminated
+- data on PD continues to exist even after VM is shut down n terminated
+- PD exists independently of VMs, local attached SSDs do not
+Features of PDs
+- can be HDD or SSD
+- SSD high thruput
+- HDD low cost, batch data operations
+- max SSD n HDD storage is 64TB
+- auto encrypt data on disk
+- how do u want ur disks? zonal or regional?
+	- zonal stores data across physical drives in multiple zones
+	- regional replicates data blocks across 2 zones within a region, but is costly
+
+Object Storage
+- large volumes of data (exabytes), and share it widely then use object storage
+- GCP's object storage is cloud storage (GCS)
+Features
+- files r stored in the system as atomic units
+- u cant operate on a part of the file
+- u can perform operations on object, deleting an object etc
+- does not support concurrency and locking  - last data written to file is stored
+- a bucket is the logical unit of organization in gcs
+- object storage does not provide a file system
+- bucket name has to be globally unique
+4 diff class of storage
+1. regional
+- Regional buckets are redundant across zones 
+2. multi-regional
+- Data is replicated in multiple regions
+- Multiregional buckets are used when content needs to be stored in multiple regions to ensure acceptable times to access content
+- Provides redundancy in case of zone-level failures
+Both 1&2 are used for frequently used data
+- If users are glob- ally dispersed and require access to synchronized data, then multi-regional may provide better performance and availability
+3. nearline
+- cases in which you expect to access files less than once per month
+4. coldline
+- Coldline storage is designed, and priced, for files expected to be accessed once per year or less
+Both 3&4 have retrieval costs
+
+Versioning and object lifecycle management
+- conditions and actions
+- rules apply to all objects in a bucket
+- nearline can go to coldline, reverse not true
+
+
+
+STORAGE DATA MODELS
+-
+
+
+
