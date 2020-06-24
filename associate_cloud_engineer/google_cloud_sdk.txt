@@ -1,0 +1,71 @@
+Cloud SDK
+- set of tools that you can use to manage resources and apps hosted on GCP
+- includes gcloud, gsutil, bq 
+- gcloud is downloaded along with cloud sdk
+
+
+***sdk components***
+- installable parts of SDK
+- a component can be command line tool (gcloud, bq and gsutil)
+- a component can be a set of gcloud CLI commands at alpha or beta release levels
+- a component can be a package that contains dependencies used by a tool in the SDK
+
+default components
+- when you install the SDK, below components are installed by default
+	- gcloud : tool for interacting with GCP
+	- bq : tool for working with data in google bigquery
+	- gsutil : tool for performing tasks related to google cloud storage
+	- core : libraries used internally by sdk tools
+
+alpha & beta components
+- not installed by default
+	- alpha : gcloud CLI commands at the Alpha release level.
+	- beta : gcloud CLI commands at the Beta release level.
+
+Managing cloud SDK components
+- list, install, update and remove Google Cloud SDK components to suit your needs
+
+list components using - gcloud components list
+install components using - gcloud components install [COMPONENT-ID]
+gcloud components update - will update all components to latest version
+remove components using - gcloud components remove [COMPONENT-ID]
+
+
+***sdk properties***
+what are sdk properties?
+- Properties are settings that govern the behavior of the gcloud CLI and other SDK tools
+- Properties can be used to define a per-product or per-service setting
+- e.g setting default region while using compute engine
+
+properties and flags
+- Properties allow you to maintain the same settings across command executions
+- Flags affect command behavior on a per-invocation basis
+- Note that flags override properties when both are set
+
+
+***configurations***
+- a named set of SDK properties
+- e.g gcloud cli uses a configuration named "default" as initial active configuration
+
+
+listing properties
+- gcloud config list
+- sample output
+
+[compute]
+region = us-east1
+zone = us-east1-d
+[core]
+account = user@google.com
+disable_usage_reporting = False
+project = example-project
+[metrics]
+command_name = gcloud.config.list
+
+To set a property in the active configuration, run gcloud config set 
+- gcloud config set project [PROJECT]
+
+- you can also set properties via environment variables
+
+unset properties using - gcloud config unset disable_usage_reporting
+
