@@ -1,0 +1,128 @@
+chapter14 - Networking in the cloud
+
+***VPC - virtual private cloud
+- vpcs are software versions of phyical networks that link resources in GCP project
+- GCP automatically creates a vpc when you create a project
+- you can add more VPCs or modify the VPCs created by GCP
+- vpcs are global resources, not tied to any region or zone
+- vpcs contain subnetworks , called subnets
+	- subnets are regional resources
+	- subnets have range of IP addresses
+	- subnets provide internal private addresses
+	- resources use these addresses to communicate
+- in addition to VPCs associated with a project, you can create shared VPC within an organization
+- shared vpc is hosted in a common project
+- vpc peering can be used for inter-project connectivity
+
+Creating VPC using console
+- when a vpc is created, subnets are created in each region
+- gcp chooses a range of ip addresses for each subnet when creating an auto mode network
+- you can also create your own subnets by selecting CUSTOM tab in subnet section
+	- IP range is specified in CIDR notation - classless inter domain routing
+	- select routing and firewall rules here 
+
+Creating VPC using gcloud
+- command for auto subnets : gcloud compute networks create network_name --subnet-mode=auto
+- command for custom subnets : gcloud compute networks create ace-exam-vpc1 --subnet-mode=custom
+
+Creating a shared VPC using gcloud
+- command - gcloud compute shared-vpc
+
+before executing commands to create a shared vpc, you will need to assign an organization member the shared VPC admin role
+- gcloud organizations add-iam-policy-binding [org-id] --member = 'user:[email-address]' --role = "roles/compute.xpnAdmin"
+
+org-id can be found using command : gcloud organizations list
+
+Once you have set the Shared VPC Admin role at the organization level, you can issue the 
+shared-vpc command : gcloud compute shared-vpc enable [HOST_PROJECT_ID]
+
+VPC Peering
+- this is used for interproject traffic when an org does not exist
+- vpc peering is implemented using command : gcloud compute networks peering create
+- For example, you peer two VPCs by specifying peerings on each network
+- example
+gcloud compute networks peerings create peer-ace-exam-1 \ 
+--network ace-exam-network-A \
+--peer-project ace-exam-project-B \
+--peer-network ace-exam-network-B \ --auto-create-routes
+
+And then create a peering on the other network using:
+
+gcloud compute networks peerings create peer-ace-exam-1 \ 
+--network ace-exam-network-B \
+--peer-project ace-exam-project-A \
+--peer-network ace-exam-network-A \ --auto-create-routes
+
+This peering will allow private traffic to flow between the two VPCs.
+
+** FIREWALL RULES
+- firewall rules are defined at n/w level and are used to control the flow of n/w traffic to VMs
+- rules allow or deny traffic on a port
+	- e.g a rule may allow TCP traffic on port 22
+- It is important to note that the firewall is stateful which means if traffic is allowed in one direction and a connection established, it is allowed in the other direction
+
+Structure of firewall rules
+1.direction - ingress or egress
+2.priority - priority rules. 0 is highest priority
+3.action - allow or deny
+4.target - instance to which this rule applies
+5.source/destination - source applies to ingress rules and specific source IP ranges, instances with n/w tags
+6.protocol and port - tcp/udp/imcp and port number
+7.enforcement status - firewall rules are either enables or disabled
+
+All VPCs start with 2 implied rules
+1. one allows egress traffic to all destinations
+2. one denies all incoming traffic from any source
+you cannot delete an implied rule
+
+Creating firewall rules using gcloud
+- command : gcloud compute firewall-rules
+- with above command, you can create, delete, describe, update and list firewall rules
+
+For example, to allow all TCP traffic on ports 20000 to 25000, use this:
+gcloud compute firewall-rules create ace-exam-fwr2 --network ace-exam-vpc1 –-allow tcp:20000-25000
+
+***VPN - Virtual Private Network
+
+- allows to securely send traffic from Google n/w to your own n/w
+To create a VPN at the command line, you can use these three commands
+- gcloud compute target-vpn-gateways 
+- gcloud compute forwarding-rule 
+- gcloud compute vpn-tunnels
+
+1d
+2c
+3b
+4a
+5b
+6c
+7a
+8a	
+9b
+10d
+11a
+12b
+13d
+14a
+15b
+16c
+17a
+18a
+19b
+20d 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
