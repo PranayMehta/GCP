@@ -1,0 +1,46 @@
+
+chapter 16 - deploying applications with cloud launcher and deployment manager 
+
+cloud launcher = marketplace
+
+** deploying a solution using cloud launcher
+- cloud launcher is a central repository of applications and datasets that can be deployed into GCP env
+- 2 step process
+	- browsing for a solution that fits your needs
+	- deploying that solution
+- browsing 
+	- search by category
+	- datasets etc
+	- operating systems etc
+
+- e.g wordpress
+	- launch on compute engine
+	- provide deployment name, zone , boot disk , external IP etc
+	- click deployment manager to see the progress of installation
+	- launch wordpress based on username password information
+
+** deploying a solution using deployment manager
+- create your own solution configuration so users can launch preconfigured solutions
+
+- deployment manager (DM) config files are written in YAML
+- resources
+	- resource entities : name, type, properties
+
+E.g yaml file 
+
+resources:
+- type: compute.v1.instance
+	name: ace-exam-deployment-vm 
+	properties:
+		machineType: [MACHINE_TYPE_URL]
+		disks: [KEY]:[VALUE] [KEY]:[VALUE]
+
+template files
+- if deployment configurations are becoming complicated, you can use deployment templates
+- templates are another text file you use to define resources and import those resources into configuration files
+- allows you to reuse res definitions in multiple places
+- templates can be written in Python or Jinja 2
+
+Launch a deployment template using command 
+- gcloud deployment-manager deployments create
+- e.g gcloud deployment-manager deployments create quickstart-deployment --config vm.yaml
