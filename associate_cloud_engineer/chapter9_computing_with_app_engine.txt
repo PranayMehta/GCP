@@ -1,0 +1,81 @@
+-- chapter 9 - computing with app engine
+
+- Google App Engine was originally designed to run applications in language-specific environments
+- Since the introduction of App Engine, Google has introduced App Engine Flexible, which can be used to deploy custom runtimes in containers
+
+App Engine Standard(aes) - serverless platform for running applications in lang specific envs
+- aes has 4 parts
+1.application
+- high level resource created in a project
+- 1 project can have one app engine application
+- all resources are created in the region  specified when the app is created 
+- apps have atleast 1 service, which is the code executed in app eng env
+- multiple versions of app may exist
+- supports versioning of apps
+- when a version executes it creates an instance of the app
+- 
+2.service
+- services r structured to perform single function with complex apps made up of multiple services known as microservices
+- one mservc can handle api requests while other can perform authentication
+- servcs r defined by their code n config file
+- combination of files constitutes a version of the app
+- if we change the source code, it changes the version 
+- heloful for testing and debugging
+3.version
+4.instance
+
+Deploying an app engine application
+- gcloud components install app-engine-python command will install app engine python library as needed
+- 3 files in hello_world directory
+	- app.yaml
+	- main.py
+	- main_test.py
+cat app.yaml shows config details
+
+to deploy your app use 
+- gcloud app deploy app.yaml
+
+output of the application can be viewed at https://project_id.appspot.com
+
+** Scaling App Engine Applications **
+- instances are created to execute an application on an app engine managed server
+- instances can be of 2 types
+	- resident - runs all the time
+	- dynamic - cost optimization, shuts down when demand is low
+- autoscaling or basic scaling means dynamic
+- manual scaling means resident
+
+- you can split traffic between versions
+ - ip split
+ - cookie split
+ - random
+
+gcloud app services set-traffic
+
+review questions
+1,b
+2,b -- a
+3,b
+4,b
+5,b
+6,a
+7,a -- c
+8,b
+9,a
+10,d -- c basic scaling allows only idle_timeout and max_instances
+11,c -- runtime parameter
+12,a
+13,d -- a 
+14,a
+15,a
+16,b
+17,c
+18,d
+19,d
+20,b
+
+
+
+
+
+
