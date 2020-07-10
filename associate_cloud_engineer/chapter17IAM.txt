@@ -1,0 +1,63 @@
+chapter 17 IAM
+
+roles
+- primitive
+- predefined
+- custom
+
+service accounts (sa)
+- used to provide identities independent of human users
+- sa are identities that can be granted roles 
+- working with scopes
+- assigning service accounts to VMs
+
+managing sa with scopes
+- Scopes are permissions granted to a VM to perform some operation
+- Scopes authorize the access to API methods
+- The service account assigned to a VM has roles associated with it
+- To configure access controls for a VM, you will need to configure both IAM roles and scopes
+
+A scope is specified using a URL that starts with https://www.googleapis.com/auth/ and is then followed by permission on a resource.
+
+For example, the scope allowing a VM to insert data into BigQuery is as follows: 
+https://www.googleapis.com/auth/bigquery.insertdata
+
+The scope that allows viewing data in Cloud Storage is as follows:
+https://www.googleapis.com/auth/devstorage.read_only
+
+And to write to Compute Engine logs, use this:
+https://www.googleapis.com/auth/logging.write
+
+- An instance can only perform operations allowed by both IAM roles assigned to the service account and scopes defined on the instance
+- For example, if a role grants only read- only access to Cloud Storage but a scope allows write access, then the instance will not be able to write to Cloud Storage
+
+An example scope assignment using gcloud is as follows:
+gcloud compute instances set-service-account ace-instance \ --service-account examadmin@ace-exam-project.iam.gserviceaccount.com \ --scopes compute-rw,storage-ro
+
+-- service account for VM instance
+gcloud compute instances create [INSTANCE_NAME] --service-account [SERVICE_ ACCOUNT_EMAIL]
+
+1 b
+2 a
+3 b
+4 b
+5 a c gcloud projects get-iam-policy ace-exam-project
+6 b
+7 d
+8 b
+9 d
+10 d gcloud iam roles create
+11 b
+12 b
+13 c
+14 c
+15 b
+16 a b gcloud compute instances set-service-account
+17 a
+18 c
+19 b 
+20 b
+
+
+
+
